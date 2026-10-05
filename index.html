@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StandBridge AI | SIH26108</title>
+<style>
+:root{--navy:#123b67;--blue:#1677d2;--bg:#f5f8fc;--line:#dbe6f0;--muted:#6b7d90;--white:#fff;--green:#159463}
+*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:#18324d}
+button,input,textarea{font:inherit}button{cursor:pointer;border:0}.hidden{display:none!important}
+.top{height:68px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--navy);font-size:20px}.logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#1266b8,#6849df);display:grid;place-items:center;color:white}
+.layout{display:flex}.side{width:230px;position:fixed;top:68px;bottom:0;background:#fff;border-right:1px solid var(--line);padding:16px 10px}.side button{width:100%;text-align:left;background:none;padding:12px;border-radius:9px;color:#617487;margin:3px 0}.side button:hover,.side button.active{background:#eaf4ff;color:var(--blue);font-weight:700}
+main{margin-left:230px;padding:25px;width:calc(100% - 230px);max-width:1500px}.title{display:flex;justify-content:space-between;gap:15px;align-items:start}.title h1{margin:0;color:var(--navy)}.muted{color:var(--muted);font-size:13px}.btn{padding:11px 16px;border-radius:9px;font-weight:700}.primary{background:var(--blue);color:#fff}.secondary{background:#edf5fb;color:var(--navy)}
+.grid{display:grid;gap:17px}.g4{grid-template-columns:repeat(4,1fr)}.g2{grid-template-columns:repeat(2,1fr)}.card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px;box-shadow:0 5px 18px #1937530b}.num{font-size:27px;font-weight:800;color:var(--navy)}.stat{display:flex;justify-content:space-between}.icon{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:#eaf5ff}.hero{margin:18px 0;background:linear-gradient(135deg,#123b67,#1677d2);color:#fff;padding:24px;border-radius:17px}.hero h2{margin:0 0 7px}.hero p{margin:0;color:#dceeff}
+.section{font-weight:800;color:var(--navy);margin:0 0 13px}textarea,.input{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px;outline:0}textarea{min-height:150px;resize:vertical}.upload{border:2px dashed #c8dceb;border-radius:12px;padding:22px;text-align:center;margin-top:12px}.flow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.step{padding:10px 12px;border-radius:9px;background:#eef7ff;border:1px solid #d0e6fa;font-size:13px;font-weight:700}
+.match{border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0}.badge{font-size:11px;font-weight:800;padding:5px 8px;border-radius:99px}.high{background:#dff7eb;color:#138653}.rel{background:#eaf3ff;color:#1666b2}.ref{background:#f0ecff;color:#6746c9}.warn{background:#fff0d9;color:#a96800}.why{background:#f7fbff;border-left:4px solid var(--blue);padding:10px;margin-top:9px;font-size:12px}
+.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:11px;border-bottom:1px solid #edf1f5;font-size:13px}.table th{background:#fafcff;color:#63778b}
+.login{min-height:100vh;display:grid;place-items:center;background:linear-gradient(135deg,#edf7ff,#f6f2ff)}.loginbox{width:min(430px,92vw);background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px;box-shadow:0 20px 60px #173a5b1c}.form{display:grid;gap:12px;margin-top:20px}.label{font-size:12px;font-weight:700;color:#536a7f}
+.toast{position:fixed;right:20px;bottom:20px;background:#173e67;color:#fff;padding:12px 16px;border-radius:10px;display:none}.toast.show{display:block}
+@media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}.side{width:190px}main{margin-left:190px;width:calc(100% - 190px)}}
+@media(max-width:680px){.top{padding:0 13px}.side{position:static;width:100%;height:auto;border-right:0;border-bottom:1px solid var(--line);display:flex;overflow:auto}.side button{white-space:nowrap;width:auto}.layout{display:block}main{margin:0;width:100%;padding:15px}.g4,.g2{grid-template-columns:1fr}.title{display:block}.title .btn{margin-top:10px}}
+</style>
+</head>
+<body>
+<div id="login" class="login">
+ <div class="loginbox">
+  <div class="brand"><div class="logo">SB</div>StandBridge AI</div>
+  <p class="muted"></p>
+  <div class="form">
+   <div><div class="label">Email / Username</div><input class="input" value="demo@standbridge.ai"></div>
+   <div><div class="label">Password</div><input class="input" type="password" value="password"></div>
+   <button class="btn primary" onclick="login()">Sign in</button>
+   <button class="secondary" onclick="toast('Signup flow shown in prototype demo.')">Create account</button>
+  </div>
+  <p class="muted" style="margin-top:18px"></p>
+ </div>
+</div>
+
+<div id="app" class="hidden">
+<header class="top"><div class="brand"><div class="logo">SB</div>StandBridge AI</div><div class="muted">Procurement Analyst</div></header>
+<div class="layout">
+<aside class="side">
+<button class="active" onclick="page('dash',this)">⌂ Dashboard</button>
+<button onclick="page('analyze',this)">⌕ Analyze Requirements</button>
+<button onclick="page('standards',this)">▤ Standards</button>
+<button onclick="page('history',this)">◷ History</button>
+<button onclick="page('reports',this)">▣ Reports</button>
+<button onclick="page('profile',this)">⚙ Profile</button>
+</aside>
+<main>
+<section id="dash" class="pg">
+<div class="title"><div><h1>Procurement Intelligence Dashboard</h1><p class="muted">From product and tender requirements to relevant Indian Standards.</p></div><button class="btn primary" onclick="page('analyze')">+ New Analysis</button></div>
+<div class="hero"><h2>Smarter procurement. Right standards. Stronger compliance.</h2><p>Analyze technical text, identify requirements, match standards and review explainable recommendations.</p></div>
+<div class="grid g4">
+<div class="card stat"><div><span class="muted">Analyses</span><div class="num">24</div></div><div class="icon">⌕</div></div>
+<div class="card stat"><div><span class="muted">Standards matched</span><div class="num">71</div></div><div class="icon">✓</div></div>
+<div class="card stat"><div><span class="muted">Amendments flagged</span><div class="num">8</div></div><div class="icon">!</div></div>
+<div class="card stat"><div><span class="muted">Reports</span><div class="num">12</div></div><div class="icon">▣</div></div>
+</div><br>
+<div class="grid g2">
+<div class="card"><h3 class="section">Workflow</h3><div class="flow"><span class="step">Input</span>→<span class="step">Extract</span>→<span class="step">Match</span>→<span class="step">Explain</span>→<span class="step">Report</span></div></div>
+<div class="card"><h3 class="section">Recent queries</h3><table class="table"><tr><th>Input</th><th>Matches</th><th>Status</th></tr><tr><td>Industrial water pump</td><td>3</td><td><span class="badge high">Ready</span></td></tr><tr><td>Steel storage tank</td><td>5</td><td><span class="badge high">Ready</span></td></tr><tr><td>Electrical panel</td><td>4</td><td><span class="badge warn">Review</span></td></tr></table></div>
+</div>
+</section>
+
+<section id="analyze" class="pg hidden">
+<div class="title"><div><h1>Analyze Requirements</h1><p class="muted">Enter a product description, technical specification or tender requirement.</p></div></div><br>
+<div class="grid g2">
+<div class="card"><h3 class="section">Procurement input</h3><textarea id="req">Industrial centrifugal water pump for continuous operation, 50 m³/h flow, 10 bar pressure, 5.5 kW motor, cast iron body.</textarea><div class="upload">📄 Upload tender/specification PDF<br><input type="file" accept=".pdf,.txt"></div><button class="btn primary" style="width:100%;margin-top:12px" onclick="analyze()">Analyze requirements</button></div>
+<div class="card"><h3 class="section">Extracted requirements</h3><div id="extracted" class="muted">Run an analysis to extract technical parameters.</div></div>
+</div>
+<div id="results" class="card hidden" style="margin-top:17px"><h3 class="section">Recommended Indian Standards</h3><p class="muted">Illustrative prototype records. Verify against authoritative BIS information before real procurement use.</p>
+<div class="match"><b>Illustrative Standard Record A</b> <span class="badge high">High relevance</span><p class="muted">Technical specification and safety requirements relevant to the extracted equipment profile.</p><div class="why"><b>Why this matches:</b> product type, operating conditions and technical requirements overlap with this record.</div></div>
+<div class="match"><b>Illustrative Standard Record B</b> <span class="badge rel">Related</span><p class="muted">Material, dimensional or component-level requirements related to the input.</p></div>
+<div class="match"><b>Illustrative Standard Record C</b> <span class="badge ref">Reference</span><p class="muted">General testing/reference requirements that may support specification review.</p></div>
+</div>
+</section>
+
+<section id="standards" class="pg hidden"><div class="title"><div><h1>Standards Catalogue</h1><p class="muted">Search standards available to the prototype recommendation engine.</p></div></div><br><div class="card"><input class="input" placeholder="Search standard, sector or keyword..." oninput="filter(this.value)"><div style="overflow:auto"><table id="st" class="table"><tr><th>Record</th><th>Domain</th><th>Relation</th><th>Status</th></tr><tr><td>Illustrative Standard Record A<br><span class="muted">Technical specification & safety</span></td><td>Industrial equipment</td><td><span class="badge high">High</span></td><td>Current*</td></tr><tr><td>Illustrative Standard Record B<br><span class="muted">Material & dimensional requirements</span></td><td>Engineering</td><td><span class="badge rel">Related</span></td><td>Amendment*</td></tr><tr><td>Illustrative Standard Record C<br><span class="muted">General testing requirements</span></td><td>Testing</td><td><span class="badge ref">Reference</span></td><td>Current*</td></tr></table></div><p class="muted">*Illustrative demo records — verify against the latest authoritative BIS catalogue.</p></div></section>
+
+<section id="history" class="pg hidden"><div class="title"><div><h1>Analysis History</h1><p class="muted">Previous requirement-analysis sessions.</p></div></div><br><div class="card"><table class="table"><tr><th>Date</th><th>Input</th><th>Requirements</th><th>Matches</th></tr><tr><td>04 Oct 2026</td><td>Industrial water pump</td><td>6</td><td>3</td></tr><tr><td>03 Oct 2026</td><td>Steel storage tank</td><td>8</td><td>5</td></tr><tr><td>02 Oct 2026</td><td>Electrical panel</td><td>7</td><td>4</td></tr></table></div></section>
+
+<section id="reports" class="pg hidden"><div class="title"><div><h1>Procurement Standards Report</h1><p class="muted">Generate a structured report from your analysis.</p></div><button class="btn primary" onclick="toast('Report generated in demo mode.')">Generate report</button></div><br><div class="grid g2"><div class="card"><h3 class="section">Include</h3><p>✓ Extracted requirements</p><p>✓ Relevant standards</p><p>✓ Allied / normative standards</p><p>✓ Version & amendment details</p><p>✓ Certification requirements</p></div><div class="card"><h3 class="section">Preview</h3><div class="why"><b>StandBridge AI — Procurement Standards Report</b><br><br>Product: Industrial centrifugal water pump<br>Requirements: 6 extracted<br>High relevance: 1<br>Related: 1<br>Reference: 1<br><br>Review all recommendations against authoritative standards information.</div></div></div></section>
+
+<section id="profile" class="pg hidden"><div class="title"><div><h1>Profile & Access</h1><p class="muted">Prototype role and access settings.</p></div></div><br><div class="card"><h3 class="section">Procurement Analyst</h3><p class="muted">Role: Procurement / Standards Research</p><p class="muted">Access: Requirement analysis • Catalogue • Reports</p><button class="btn secondary" onclick="logout()">Sign out</button></div></section>
+</main></div></div>
+<div id="toast" class="toast"></div>
+<script>
+function login(){document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.remove('hidden')}
+function logout(){document.getElementById('app').classList.add('hidden');document.getElementById('login').classList.remove('hidden')}
+function page(id,btn){document.querySelectorAll('.pg').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.side button').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');scrollTo(0,0)}
+function analyze(){document.getElementById('extracted').innerHTML='<b>Product:</b> Industrial centrifugal water pump<ul><li>Flow rate: 50 m³/h</li><li>Pressure: 10 bar</li><li>Motor rating: 5.5 kW</li><li>Material: Cast iron</li><li>Application: Industrial</li><li>Continuous operation</li></ul>';document.getElementById('results').classList.remove('hidden');toast('Requirements analyzed and recommendations generated.')}
+function filter(q){q=q.toLowerCase();document.querySelectorAll('#st tr').forEach((r,i)=>{if(i)r.style.display=r.innerText.toLowerCase().includes(q)?'':'none'})}
+function toast(m){let t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
+</script>
+</body>
+</html>
